@@ -1,4 +1,4 @@
-import { css, customElement, html, LitElement, property, unsafeCSS, query } from 'lit-element';
+import { css, customElement, html, LitElement, property, unsafeCSS, query, queryAll } from 'lit-element';
 import { classMap } from 'lit-html/directives/class-map';
 
 const componentCSS = require('./app.component.scss');
@@ -21,8 +21,7 @@ class AppComponent extends LitElement {
   isScrolling!: boolean;
 
   @property()
-  navItems = ['Home', 'Components', 'Documentation', 'Get started', 'Account'];
-
+  navItems = ['About', 'Documentation', 'Components', 'Get started', 'Home'];
 
   firstUpdated() {
     document.addEventListener('scroll', () => {
@@ -45,29 +44,17 @@ class AppComponent extends LitElement {
 
   render() {
     return html`
-        <div class="icon ${this.open ? 'open' : ''} ${this.isScrolling ? 'hide' : 'show'}" @click=${() => this.open ? this.open
-        = false : this.open = true}>
+        <div class="icon ${this.open ? 'open' : ''} ${this.isScrolling ? 'hide' : 'show'}" @click=${()=> this.open ? this.open
+          = false : this.open = true}>
           <span class="cls"></span>
           <span>
             <ul class="sub-menu">
               <ul class='circle-container'>
                 <!-- Items are visible in opposite order  -->
                 <li></li>
-                <li>
-                  <div><a>About</a></div>
-                </li>
-                <li>
-                  <div><a>Documentation</a></div>
-                </li>
-                <li>
-                  <div class="active"><a>Components</a></div>
-                </li>
-                <li>
-                  <div><a>Get started</a></div>
-                </li>
-                <li>
-                  <div><a>Home</a></div>
-                </li>
+                ${this.navItems.map(item => html` <li>
+                  <div class=${this.selectedItem===item ? 'active' : '' } @click=${()=> this.selectedItem = item}><a>${item}</a></div>
+                </li>`)}
               </ul>
             </ul>
           </span>

@@ -242,8 +242,8 @@ marius-button {
 
   div {
 		background: var(--background-color);
-		height: 5em;
-		width: 5em;
+		height: 4.5em;
+		width: 4.5em;
     color: var(--color);
     text-align: center;
 		line-height: 2.5em;
@@ -263,13 +263,14 @@ marius-button {
 			position: relative;
 			// transform: rotate(40deg);
 			width: 7em;
-			left: -1em;
 			height: 20%;
 			line-height: 100%;
 			font-weight: bold;
 			top: 40%;
 			font-size: 1em;
 			z-index: 2;
+			margin-left: 50%;
+			transform: translateX(-50%);
 		}
 
     &:hover {
