@@ -14,10 +14,36 @@
   --selectedColor: rgb(29, 202, 255);
   --position: fixed;
   --circle-radius: 500px;
+  --button-shadow: rgba(0, 0, 0, 0.2);
 }
+
+#topBar {
+  left: 0;
+  top: 0;
+  position: fixed;
+  width: 100vw;
+  background: var(--app-primary-color);
+	height: 3.5em;
+	z-index: 9999;
+}
+
+.hide {
+  opacity: 0;
+  transition: opacity 0.1s linear;
+}
+
+.hideBar {
+  transition: opacity .5s linear;
+}
+
+.show {
+  opacity: 1;
+  transition: opacity .5s linear;
+}
+
 .icon {
-  position: var(--position);
-  top: 20px;
+	position: var(--position);
+	top: 10px;
   right: 40px;
   width: 50px;
   height: 50px;
@@ -35,7 +61,7 @@
     height: 4px;
     width: 40px;
     border-radius: 40px;
-    background-color: rgb(0, 0, 0);
+    background-color: black;
     position: absolute;
     right: 3px;
     top: 3px;
@@ -178,35 +204,13 @@
   }
 }
 
-.hide {
-  opacity: 0;
-  transition: opacity 0.1s linear;
-}
-
-.show {
-  opacity: 1;
-  transition: opacity 1s linear;
-}
-
-marius-button {
-  --app-primary-color: white;
-  --app-primary-color-hover: rgb(0, 0, 0);
-  --app-primary-color-shadow: white;
-  --button-shadow: rgba(255, 255, 255, 0.527);
-  --border-radius: 90px;
-  --height: 45px;
-  --width: 120px;
-  --color: rgb(13, 183, 235);
-  --margin: 5px;
-}
-
 // CIRCLE
 
 @mixin on-circle($item-count, $circle-size, $item-size) {
   position: relative;
   width: $circle-size;
   height: $circle-size;
-	padding: 0;
+  padding: 0;
   border-radius: 50%;
   list-style: none;
 
@@ -235,62 +239,63 @@ marius-button {
 .circle-container {
   @include on-circle($item-count: 6, $circle-size: 15em, $item-size: 2em);
   transform: rotate(-40deg);
-	margin: 5em auto 0;
-	margin-right: 10em;
+  margin: 5em auto 0;
+  margin-right: 10em;
   top: 5em;
   // border: solid 5px var(--app-primary-color);
 
   div {
-		background: var(--background-color);
-		height: 4.5em;
-		width: 4.5em;
+    background: var(--background-color);
+    height: 4.5em;
+    width: 4.5em;
     color: var(--color);
     text-align: center;
-		line-height: 2.5em;
+    line-height: 2.5em;
     border-bottom: 1px solid #060606;
     position: relative;
     text-decoration: none;
     vertical-align: middle;
-    box-shadow: var(--shadow-x) var(--shadow-y) 0 #e1e1e126;
+    box-shadow: 0px 8px 15px var(--button-shadow);
     transition: all 0.2s linear;
     cursor: pointer;
-		border-radius: 50%;
-		padding: 5px 5px;
-		transform: rotate(40deg);
-		justify-content: center;
+    border-radius: 50%;
+    padding: 5px 5px;
+    transform: rotate(40deg);
+    justify-content: center;
 
-		a {
-			position: relative;
-			// transform: rotate(40deg);
-			width: 7em;
-			height: 20%;
-			line-height: 100%;
-			font-weight: bold;
-			top: 40%;
-			font-size: 1em;
-			z-index: 2;
-			margin-left: 50%;
-			transform: translateX(-50%);
-		}
+    a {
+      position: relative;
+      // transform: rotate(40deg);
+      width: 7em;
+      height: 20%;
+      line-height: 100%;
+      font-weight: bold;
+      top: 40%;
+      font-size: 1em;
+      z-index: 2;
+      margin-left: 50%;
+      transform: translateX(-50%);
+    }
 
     &:hover {
       background: var(--hover-background-color);
       color: var(--hover-color);
       // transform: translate(0.9em, 0em);
       transition: all 0.25s linear;
-      box-shadow: -1.5em 1em 0 #e1e1e11f;
+      box-shadow: 0px 8px 15px white;
     }
-	}
+  }
 
-	.active {
-		color: white;
-		background: var(--app-primary-color);
-		border: 1px solid white;
+  .active {
+    color: white;
+    background: var(--app-primary-color);
+    border: 1px solid white;
+    box-shadow: 0px 8px 15px white;
 
-		&:hover {
-			background: var(--app-primary-color-hover);
-		}
-	}
+    &:hover {
+      background: var(--app-primary-color-hover);
+    }
+  }
 
   // a, img {
   // 	display: block;

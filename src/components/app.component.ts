@@ -21,15 +21,25 @@ class AppComponent extends LitElement {
   isScrolling!: boolean;
 
   @property()
+  scrolledTop: boolean = true;
+
+  @property()
   navItems = ['About', 'Documentation', 'Components', 'Get started', 'Home'];
 
   firstUpdated() {
     document.addEventListener('scroll', () => {
       this.isScrolling = true;
       this.open = false;
+      document.documentElement.scrollTop === 0 ? this.scrolledTop = true : this.scrolledTop = false;
       setTimeout(() => {
         this.isScrolling = false;
       }, 500);
+    });
+
+    // Closes corner navbar when clicking outside of navbar
+    document.addEventListener('click', (e: Event) => {
+      const clickoutside = !e.composedPath().includes(this);
+      clickoutside ? this.open = false : '';
     });
   }
 
@@ -44,7 +54,11 @@ class AppComponent extends LitElement {
 
   render() {
     return html`
-        <div class="icon ${this.open ? 'open' : ''} ${this.isScrolling ? 'hide' : 'show'}" @click=${()=> this.open ? this.open
+    <div id="topBar" class="${this.scrolledTop ? 'show' : 'hide hideBar'}">
+
+    </div>
+        <div class="icon ${this.open ? 'open' : ''} ${this.scrolledTop || this.isScrolling ? 'hide' : 'show'}"
+        @click=${()=> this.open ? this.open
           = false : this.open = true}>
           <span class="cls"></span>
           <span>
