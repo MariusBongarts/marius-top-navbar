@@ -22,28 +22,85 @@
   top: 0;
   position: fixed;
   width: 100vw;
-  background: var(--app-primary-color);
-	height: 3.5em;
-	z-index: 9999;
+  background: var(--background-color);
+  height: 3.5em;
+  z-index: 9999;
+}
+
+// TopNavBar begins
+
+.navbar {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: table;
+  table-layout: fixed;
+  width: 80%;
+  height: 100%;
+	left: 10%;
+
+  li {
+    display: table-cell;
+    vertical-align: middle;
+    text-decoration: none;
+    color: var(--color);
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+  }
+
+  li:hover {
+    background-color: var(--app-primary-color);
+    color: white;
+	}
+
+	.active {
+		color: var(--app-primary-color);
+	}
 }
 
 .hide {
   opacity: 0;
-  transition: opacity 0.1s linear;
+	transition: opacity 0.1s linear;
 }
 
 .hideBar {
-  transition: opacity .5s linear;
+  transition: opacity 0.5s linear;
 }
 
 .show {
   opacity: 1;
-  transition: opacity .5s linear;
+  transition: opacity 0.3s linear;
+}
+
+// Icon animation
+.showIcon {
+  animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+@keyframes shake {
+  10%, 90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+
+  20%, 80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%, 50%, 70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  40%, 60% {
+    transform: translate3d(4px, 0, 0);
+  }
 }
 
 .icon {
-	position: var(--position);
-	top: 10px;
+  position: var(--position);
+  top: 10px;
   right: 40px;
   width: 50px;
   height: 50px;
@@ -51,9 +108,7 @@
   cursor: pointer;
   transition: opacity 0.2s linear;
   z-index: 9999;
-  &:hover {
-    opacity: 0.8;
-  }
+
   span {
     display: block;
     float: left;

@@ -21,12 +21,21 @@ class AppComponent extends LitElement {
   isScrolling!: boolean;
 
   @property()
+  mobile = false;
+
+  @property()
   scrolledTop: boolean = true;
 
   @property()
-  navItems = ['About', 'Documentation', 'Components', 'Get started', 'Home'];
+  navItems = ['Home', 'Components', 'Documentation', 'Get started', 'About'];
 
   firstUpdated() {
+    if (window.innerWidth < 928) this.mobile = true;
+    window.addEventListener('resize', () => {
+      if (window.innerWidth < 928) this.mobile = true;
+      if (window.innerWidth >= 928) this.mobile = false;
+    });
+
     document.addEventListener('scroll', () => {
       this.isScrolling = true;
       this.open = false;
@@ -54,26 +63,34 @@ class AppComponent extends LitElement {
 
   render() {
     return html`
+    ${!this.mobile ? html`
     <div id="topBar" class="${this.scrolledTop ? 'show' : 'hide hideBar'}">
-
+      <ul class="navbar">
+        ${this.navItems.map(item => html`
+        <li @click=${() => this.selectedItem = item}
+          class=${this.selectedItem === item ? 'active' : ''}>${item}</li>`)}
+      </ul>
     </div>
-        <div class="icon ${this.open ? 'open' : ''} ${this.scrolledTop || this.isScrolling ? 'hide' : 'show'}"
-        @click=${()=> this.open ? this.open
-          = false : this.open = true}>
-          <span class="cls"></span>
-          <span>
-            <ul class="sub-menu">
-              <ul class='circle-container'>
-                <!-- Items are visible in opposite order  -->
-                <li></li>
-                ${this.navItems.map(item => html` <li>
-                  <div class=${this.selectedItem===item ? 'active' : '' } @click=${()=> this.selectedItem = item}><a>${item}</a></div>
-                </li>`)}
-              </ul>
-            </ul>
-          </span>
-          <span class="cls"></span>
-        </div>
+    ` : ''}
+
+    <div class="icon ${this.open ? 'open' : ''} ${(this.scrolledTop || this.isScrolling) && !this.mobile ? 'hide' : 'show showIcon'}"
+      @click=${()=>
+      this.open ? this.open
+    = false : this.open = true}>
+      <span class="cls"></span>
+      <span>
+        <ul class="sub-menu">
+          <ul class='circle-container'>
+            <!-- Items are visible in opposite order  -->
+            <li></li>
+            ${this.navItems.map(item => html` <li>
+              <div class=${this.selectedItem === item ? 'active' : ''} @click=${() => this.selectedItem = item}><a>${item}</a></div>
+            </li>`)}
+          </ul>
+        </ul>
+      </span>
+      <span class="cls"></span>
+    </div>
 `;
   }
 
